@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/head :: head}"></head>
+<body>
+
+<nav th:replace="~{fragments/navbar :: nav}"></nav>
+
+<h2>Editar Usuario</h2>
+<form th:action="@{/admin/editar}" method="post">
+    <input type="hidden" th:field="*{usuario.id}">
+
+    <label>Nombre:</label>
+    <input type="text" th:field="*{usuario.nombre}" required>
+
+    <label>Apellido:</label>
+    <input type="text" th:field="*{usuario.apellido}" required>
+
+    <label>Email:</label>
+    <input type="email" th:field="*{usuario.email}" required>
+
+    <button type="submit">Guardar Cambios</button>
+</form>
+
+<footer th:replace="~{fragments/footer :: footer}"></footer>
+
+</body>
+</html>

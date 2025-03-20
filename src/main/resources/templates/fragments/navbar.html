@@ -1,0 +1,69 @@
+
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+      lang ="en">
+
+
+<nav class="navbar navbar-expand-lg navBar">
+    <div class="containerImg">
+        <a href="#" class="navbar-brand d-flex align-items-center">
+            <img class="logo" src="/img/Egg.png" alt="Img logo egg">
+        </a>
+    </div>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse elementosNav" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto elementos">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" id="navbarDropdown1" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Artículos
+                </a>
+
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="dropdown-item" sec:authorize="hasRole('ADMIN')" th:href="@{/articulo/registrar}">Crear Artículo</a>
+                    </li>
+                    <li>
+                        <a class="dropdown-item" th:href="@{/articulo/lista}">Listar Artículos</a>
+                    </li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}"  href="#" id="navbarDropdown2" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Fábricas
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <li>
+                        <a class="dropdown-item" sec:authorize="hasRole('ADMIN')" th:href="@{/fabrica/registrar}">Crear Fábrica</a>
+                    </li>
+                    <li><a class="dropdown-item" th:href="@{/fabrica/lista}">Listar Fábricas</a></li>
+                </ul>
+            </li>
+
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" th:if="${session.usuariosession != null}" href="#" id="navbarDropdown4" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    Perfil
+                </a>
+                <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                    <th:block sec:authorize="hasAnyRole('ADMIN','USER')">
+                        <li class="nav-item">
+                            <a class="nav-link" th:href="@{/logout}">Cerrar Sesión</a>
+                        </li>
+                    </th:block>
+                </ul>
+            </li>
+
+            <th:block th:if="${session.usuariosession == null}">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/registrar}">Regístrate</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/login}">Login</a>
+                </li>
+            </th:block>
+        </ul>
+    </div>
+</nav>
+</html>
