@@ -14,6 +14,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -32,24 +33,33 @@ public class AdminControlador {
         return "panel.html"; // Retorna la vista panel.html en templates/
     }
 
-    @PostMapping("/cambiarRol")
-    public String cambiarRol(@RequestParam UUID id, @RequestParam String nuevoRol, RedirectAttributes redirectAttributes) {
-        String loggedInUserEmail = ((Usuario) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getEmail();
 
-        if (usuarioServicio.esAdmin(loggedInUserEmail)) {
-
-            if (usuarioServicio.esElMismoUsuario(id, loggedInUserEmail)) {
-                redirectAttributes.addFlashAttribute("error", "No puedes modificar tu propio rol.");
-                return "redirect:/admin/dashboard";
-            }
-            usuarioServicio.cambiarRol(id, nuevoRol); // Cambiar el rol si es admin y no intenta cambiar su propio rol
-            redirectAttributes.addFlashAttribute("exito", "Rol cambiado exitosamente.");
-            return "redirect:/admin/dashboard";
+    @GetMapping("/editar/{id}")
+    public String editarUsuario(@PathVariable("id") UUID id, Model model) {
+        Optional<Usuario> usuarioOpt = usuarioServicio.obtenerUsuarioPorId(id);
+        if (usuarioOpt.isPresent()) {
+            model.addAttribute("usuario", usuarioOpt.get());
+            return "editarusuario.html"; // Redirige al formulario de edición
         } else {
-            redirectAttributes.addFlashAttribute("error", "Acceso denegado.");
-            return "redirect:/acceso-denegado";
+            return "error/usuarioNoEncontrado"; // Página de error si no se encuentra el usuario
         }
+    }
 
+
+    @PostMapping("/editar")
+    public String editarUsuario(@RequestParam("id") UUID id,
+                                @RequestParam("nombre") String nombre,
+                                @RequestParam("apellido") String apellido,
+                                @RequestParam("email") String email,
+                                @RequestParam("rol") String rol) {
+        try {
+            Rol rolEnum = Rol.valueOf(rol.toUpperCase()); // Convertir String a Enum
+            Usuario usuario = usuarioServicio.modificarUsuario(id, nombre, apellido, email, rolEnum);
+            return "redirect:../admin/dashboard"; // Redirige a la lista de usuarios
+        } catch (MiExcepcion ex) {
+
+            return "error/usuarioNoEncontrado"; // Página de error
+        }
     }
 
     // Obtener el usuario autenticado

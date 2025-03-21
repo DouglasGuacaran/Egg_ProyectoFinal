@@ -18,6 +18,12 @@
     <label>Email:</label>
     <input type="email" th:field="*{usuario.email}" required>
 
+    <label>Rol:</label>
+    <select th:field="*{usuario.rol}">
+        <option value="ADMIN" th:selected="${usuario.rol == 'ADMIN'}">ADMIN</option>
+        <option value="USER" th:selected="${usuario.rol == 'USER'}">USER</option>
+    </select>
+
     <button type="submit">Guardar Cambios</button>
 </form>
 

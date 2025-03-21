@@ -17,7 +17,6 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SeguridadWeb {
 
     @Autowired
-    @Lazy
     public UsuarioServicio usuarioServicio;
 
     @Autowired
@@ -29,6 +28,7 @@ public class SeguridadWeb {
     public BCryptPasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http

@@ -35,21 +35,13 @@
             <td th:text="${usuario.id}"></td>
             <td th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></td>
             <td th:text="${usuario.email}"></td>
-            <td>
-                <span th:text="${usuario.rol}"></span>
-                <form th:action="@{/admin/cambiarRol}" method="post" style="display:inline;">
-                    <input type="hidden" name="id" th:value="${usuario.id}">
-                    <input type="hidden" name="nuevoRol" th:value="${usuario.rol == 'USER' ? 'ADMIN' : 'USER'}">
-                    <button type="submit" class="btn btn-warning btn-sm" title="Cambiar Rol">
-                        <i class="fas fa-exchange-alt"></i>
-                    </button>
-                </form>
-            </td>
-
+            <td th:text="${usuario.rol}"></td>
 
             <!-- Enlace para editar usuario -->
             <td sec:authorize="hasRole('ADMIN')">
-                <button  type ="submit" class="btn btn-primary btn-sm mt-1" th:action= "@{/admin/editar/{id}(id=${usuario.id})}"><i class="fas fa-edit">  </i> Modificar </button>
+                <a th:href="@{/admin/editar/{id}(id=${usuario.id})}" class="btn btn-primary btn-sm mt-1">
+                    <i class="fas fa-edit"></i> Modificar
+                </a>
                 <br>
                 <form method="post" th:action="@{/admin/eliminar/{id}(id=${usuario.id})}" style="display:inline;">
                     <button type="submit" class="btn btn-danger btn-sm mt-1"

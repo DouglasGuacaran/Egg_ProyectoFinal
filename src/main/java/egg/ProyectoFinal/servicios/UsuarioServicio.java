@@ -18,8 +18,10 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import javax.management.relation.Role;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -96,10 +98,19 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public void cambiarRol(UUID id, String rol) {
-        Usuario usuario = usuarioRepositorio.findById(id).orElseThrow(() -> new RuntimeException("Usuario no encontrado"));
-        usuario.setRol(Rol.valueOf(rol.toUpperCase()));
-        usuarioRepositorio.save(usuario);
+    public Usuario modificarUsuario(UUID id, String nombre, String apellido, String email, Rol rol) throws MiExcepcion {
+
+        Optional<Usuario> usuarioOpt = Optional.ofNullable(usuarioRepositorio.buscarPorEmail(email));
+        if (usuarioOpt.isPresent()) {
+            Usuario usuario = usuarioOpt.get();
+            usuario.setNombre(nombre);
+            usuario.setApellido(apellido);
+            usuario.setEmail(email);
+            usuario.setRol(rol);
+            return usuarioRepositorio.save(usuario); // Guarda los cambios
+        } else {
+            throw new MiExcepcion("Usuario no encontrado con ID: " + id);
+        }
     }
 
     @Transactional
@@ -108,14 +119,8 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.delete(usuario); // Elimina el usuario de la base de datos
     }
 
-    public boolean esAdmin(String email) {
-        Usuario usuario = usuarioRepositorio.buscarPorEmail(email);
-        return usuario != null && usuario.getRol() == Rol.ADMIN;
-    }
 
-    public boolean esElMismoUsuario(UUID id, String email) {
-        Usuario usuario = usuarioRepositorio.findById(id).orElse(null);
-        return usuario != null && usuario.getEmail().equals(email);
+    public Optional<Usuario> obtenerUsuarioPorId(UUID id) {
+        return usuarioRepositorio.findById(id); // Cambié el tipo de id a UUID
     }
-
 }
