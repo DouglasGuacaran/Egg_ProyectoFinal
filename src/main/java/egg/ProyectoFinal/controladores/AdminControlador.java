@@ -8,10 +8,10 @@ import egg.ProyectoFinal.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import java.util.Optional;
@@ -33,7 +33,6 @@ public class AdminControlador {
         return "panel.html"; // Retorna la vista panel.html en templates/
     }
 
-
     @GetMapping("/editar/{id}")
     public String editarUsuario(@PathVariable("id") UUID id, Model model) {
         Optional<Usuario> usuarioOpt = usuarioServicio.obtenerUsuarioPorId(id);
@@ -47,14 +46,16 @@ public class AdminControlador {
 
 
     @PostMapping("/editar")
-    public String editarUsuario(@RequestParam("id") UUID id,
+    public String editarUsuario(
+                                @RequestParam("archivo") MultipartFile archivo,
+                                @RequestParam("id") UUID id,
                                 @RequestParam("nombre") String nombre,
                                 @RequestParam("apellido") String apellido,
                                 @RequestParam("email") String email,
                                 @RequestParam("rol") String rol) {
         try {
             Rol rolEnum = Rol.valueOf(rol.toUpperCase()); // Convertir String a Enum
-            Usuario usuario = usuarioServicio.modificarUsuario(id, nombre, apellido, email, rolEnum);
+            Usuario usuario = usuarioServicio.modificarUsuario( archivo, id, nombre, apellido, email, rolEnum);
             return "redirect:../admin/dashboard"; // Redirige a la lista de usuarios
         } catch (MiExcepcion ex) {
 

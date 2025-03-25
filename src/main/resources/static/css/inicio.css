@@ -23,6 +23,11 @@
     margin: auto;
 }
 
+.logo-img{
+    max-height:50px;
+    width 50px;
+}
+
 .tituloBiblioteca{
     width: 80%;
     text-align: center;
@@ -85,3 +90,4 @@
 .botonCargar:active{
     box-shadow: none;
 }
+

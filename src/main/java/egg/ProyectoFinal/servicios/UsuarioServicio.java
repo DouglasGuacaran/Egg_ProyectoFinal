@@ -1,5 +1,6 @@
 package egg.ProyectoFinal.servicios;
 
+import egg.ProyectoFinal.entidades.Imagen;
 import egg.ProyectoFinal.entidades.Usuario;
 import egg.ProyectoFinal.enumeraciones.Rol;
 import egg.ProyectoFinal.excepciones.MiExcepcion;
@@ -17,8 +18,9 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.management.relation.Role;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -30,8 +32,11 @@ public class UsuarioServicio implements UserDetailsService {
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
 
+    @Autowired
+    private  ImagenServicio imagenServicio;
+
     @Transactional
-    public void registrar(String nombre, String apellido, String email, String password, String password2) throws MiExcepcion {
+    public void registrar(MultipartFile archivo, String nombre, String apellido, String email, String password, String password2) throws MiExcepcion {
 
         validar(nombre, apellido, email, password, password2);
 
@@ -42,6 +47,9 @@ public class UsuarioServicio implements UserDetailsService {
         usuario.setPassword(new BCryptPasswordEncoder().encode(password));
         usuario.setRol(Rol.USER);
 
+        Imagen imagen = imagenServicio.guardar(archivo);
+
+        usuario.setImagen(imagen);
         usuarioRepositorio.save(usuario);
     }
 
@@ -98,7 +106,7 @@ public class UsuarioServicio implements UserDetailsService {
     }
 
     @Transactional
-    public Usuario modificarUsuario(UUID id, String nombre, String apellido, String email, Rol rol) throws MiExcepcion {
+    public Usuario modificarUsuario(MultipartFile archivo, UUID id, String nombre, String apellido, String email, Rol rol) throws MiExcepcion {
 
         Optional<Usuario> usuarioOpt = Optional.ofNullable(usuarioRepositorio.buscarPorEmail(email));
         if (usuarioOpt.isPresent()) {
@@ -107,6 +115,14 @@ public class UsuarioServicio implements UserDetailsService {
             usuario.setApellido(apellido);
             usuario.setEmail(email);
             usuario.setRol(rol);
+            String idImagen = null;
+
+            if (usuario.getImagen()!= null){
+                idImagen = usuario.getImagen().getId();
+            }
+
+            Imagen imagen = imagenServicio.actualizar(archivo,idImagen);
+            usuario.setImagen(imagen);
             return usuarioRepositorio.save(usuario); // Guarda los cambios
         } else {
             throw new MiExcepcion("Usuario no encontrado con ID: " + id);
@@ -122,5 +138,9 @@ public class UsuarioServicio implements UserDetailsService {
 
     public Optional<Usuario> obtenerUsuarioPorId(UUID id) {
         return usuarioRepositorio.findById(id); // Cambié el tipo de id a UUID
+    }
+    @Transactional(readOnly = true)
+    public Usuario getOne(UUID id) {
+        return usuarioRepositorio.findById(id).orElse(null);
     }
 }

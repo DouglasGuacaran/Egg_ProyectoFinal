@@ -7,11 +7,13 @@ import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 @RequestMapping("/")
@@ -23,8 +25,10 @@ public class PortalControlador {
 
     @PreAuthorize("hasAnyRole('ROLE_USER', 'ROLE_ADMIN')")
     @GetMapping("/")
-    public String index(HttpSession session){
+    public String index(Model model, HttpSession session){
         Usuario logueado = (Usuario) session.getAttribute("usuariosession");
+        model.addAttribute("usuario", logueado);
+
         return "index.html";
     }
 
@@ -34,9 +38,9 @@ public class PortalControlador {
     }
 
     @PostMapping("/registrar")
-    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, @RequestParam String password2, ModelMap model) throws MiExcepcion {
+    public String registro(@RequestParam String nombre, @RequestParam String apellido, @RequestParam String email, @RequestParam String password, @RequestParam String password2, @RequestParam MultipartFile archivo, ModelMap model) throws MiExcepcion {
         try {
-            usuarioServicio.registrar(nombre, apellido, email, password, password2);
+            usuarioServicio.registrar(archivo, nombre, apellido, email, password, password2);
             model.put("exito","Usuario registrado correctamente");
             return "registro.html";
         }catch (MiExcepcion ex){

@@ -27,6 +27,7 @@
             <th>Nombre y Apellido</th>
             <th>Email</th>
             <th>Rol</th>
+            <th>Imagen</th>
             <th>Acción</th>
         </tr>
         </thead>
@@ -36,6 +37,9 @@
             <td th:text="${usuario.nombre} + ' ' + ${usuario.apellido}"></td>
             <td th:text="${usuario.email}"></td>
             <td th:text="${usuario.rol}"></td>
+            <td>
+                <img class="logo-img rounded" th:src="@{/imagen/perfil/{id}(id=${usuario.id})}" alt="imagen_de_perfil">
+            </td>
 
             <!-- Enlace para editar usuario -->
             <td sec:authorize="hasRole('ADMIN')">
