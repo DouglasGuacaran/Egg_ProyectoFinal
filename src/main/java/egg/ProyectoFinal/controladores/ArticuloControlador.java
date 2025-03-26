@@ -41,10 +41,10 @@ public class ArticuloControlador {
                            @RequestParam String nombreArticulo,
                            @RequestParam String descripcionArticulo,
                            @RequestParam Long fabricaId,
-                           @RequestParam int cantidad
+                           @RequestParam int cantidad,Model modelo
                            ) throws MiExcepcion{
         articuloServicio.crearArticulo( nombreArticulo,descripcionArticulo,fabricaId,cantidad);
-
+        modelo.addAttribute("exito","El artículo se ha creado correctamente");
         return "redirect:../lista";
     }
 
@@ -84,6 +84,7 @@ public class ArticuloControlador {
     public String modificar(@PathVariable Long id, @RequestParam String nombreArticulo, @RequestParam Integer nroArticulo, @RequestParam String descripcionArticulo, @RequestParam int cantidad, @RequestParam Long fabricaId, Model model) {
         try {
             articuloServicio.modificarArticulo(id,nombreArticulo,nroArticulo,descripcionArticulo,cantidad,fabricaId);
+            model.addAttribute("exito","El artículo ha sido modificado correctamente");
             return "redirect:../lista";
         }catch (MiExcepcion ex){
             model.addAttribute("error",ex.getMessage());

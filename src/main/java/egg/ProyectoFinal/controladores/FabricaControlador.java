@@ -44,7 +44,7 @@ public class FabricaControlador {
     public String registro(@RequestParam String nombreFabrica, Model modelo) throws Exception  {
         try {
             fabricaServicio.crearFabrica(nombreFabrica);
-            modelo.addAttribute("exito","El autor fue cargado correctamente");
+            modelo.addAttribute("exito","La fábrica fue creada correctamente");
 
         } catch (Exception ex) {
             modelo.addAttribute("error", ex.getMessage());
@@ -57,6 +57,8 @@ public class FabricaControlador {
     public String modificar(@PathVariable Long id, @RequestParam String nombreFabrica, Model model) {
         try {
             fabricaServicio.modificarFabrica( id, nombreFabrica);
+            model.addAttribute("exito","La fábrica se ha editado correctamente");
+
             return "redirect:../lista";
         }catch (MiExcepcion ex){
             model.addAttribute("error",ex.getMessage());
