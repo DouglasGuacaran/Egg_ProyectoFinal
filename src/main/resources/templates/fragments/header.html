@@ -3,10 +3,10 @@
         <div class="tituloBiblioteca">
             <a class="navbar-brand" href="#">Fabrica Eléctrica EGG</a>
         </div>
-        <div class="container contenedorLibros">
-            <p class="tituloLibros">Encontrá todos los artículos eléctricos Aquí!</p>
+        <div class="container">
+            <p class="titulo">Encontrá todos los artículos eléctricos Aquí!</p>
 
-            <p class="tituloLibros" th:if = "${session.usuariosession !=null}" th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} "></p>
+            <p class="subtitulo" th:if = "${session.usuariosession !=null}" th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} "></p>
         </div>
     </section>
 </header>
