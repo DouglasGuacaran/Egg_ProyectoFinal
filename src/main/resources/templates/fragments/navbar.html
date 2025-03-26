@@ -56,6 +56,9 @@
                             <li class="nav-item">
                                 <a class="dropdown-item" th:href="@{/logout}">Cerrar Sesión</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="dropdown-item" th:href="@{'/admin/editar/' + ${session.usuariosession.id}}">Modificar perfil</a>
+                            </li>
                         </th:block>
                     </ul>
                 </li>
