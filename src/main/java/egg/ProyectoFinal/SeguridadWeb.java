@@ -35,7 +35,7 @@ public class SeguridadWeb {
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/admin/**").hasRole("ADMIN")
                         .requestMatchers("/css/**", "/js/**", "/img/**").permitAll()
-                        .requestMatchers( "/login","/registrar").permitAll()
+                        .requestMatchers( "/","/login","/registrar").permitAll()
                         .anyRequest().authenticated())
                 .formLogin((form) -> form
                         .loginPage("/login")
