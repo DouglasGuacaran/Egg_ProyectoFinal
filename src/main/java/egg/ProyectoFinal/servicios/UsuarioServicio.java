@@ -53,6 +53,16 @@ public class UsuarioServicio implements UserDetailsService {
         usuarioRepositorio.save(usuario);
     }
 
+    public Usuario buscarPorEmail(String email) throws MiExcepcion {
+        return usuarioRepositorio.findByEmail(email)
+                .orElseThrow(() -> new MiExcepcion("Usuario no encontrado con email: " + email));
+    }
+
+    public Usuario buscarPorId(UUID id) throws MiExcepcion {
+        return usuarioRepositorio.findById(id)
+                .orElseThrow(() -> new MiExcepcion("Usuario no encontrado con id: " + id));
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 
