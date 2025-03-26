@@ -13,7 +13,7 @@ public class ProyectoFinalApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ProyectoFinalApplication.class, args);
 	}
-
+	/*
 	@Configuration
 	public static class Myconfiguration{
 		@Bean
@@ -26,5 +26,5 @@ public class ProyectoFinalApplication {
 				}
 			};
 		}
-	}
+	}*/
 }
