@@ -10,7 +10,7 @@
     <title>Crear Fábrica</title>
 </head>
 <body>
-<nav th:replace = "~{/fragments/navbar :: nav}"></nav>
+<nav th:replace = "fragments/navbar :: nav"></nav>
 <form class="formulario"  th:action="@{/fabrica/registro}" method="POST">
 
     <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
