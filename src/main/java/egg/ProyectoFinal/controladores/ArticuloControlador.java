@@ -85,7 +85,7 @@ public class ArticuloControlador {
         try {
             articuloServicio.modificarArticulo(id,nombreArticulo,nroArticulo,descripcionArticulo,cantidad,fabricaId);
             model.addAttribute("exito","El artículo ha sido modificado correctamente");
-            return "redirect:../lista";
+            return "redirect:../articulo/lista";
         }catch (MiExcepcion ex){
             model.addAttribute("error",ex.getMessage());
             return "articulo_modificar.html";
