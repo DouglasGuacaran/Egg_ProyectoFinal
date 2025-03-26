@@ -45,7 +45,7 @@ public class ArticuloControlador {
                            ) throws MiExcepcion{
         articuloServicio.crearArticulo( nombreArticulo,descripcionArticulo,fabricaId,cantidad);
         modelo.addAttribute("exito","El artículo se ha creado correctamente");
-        return "redirect:../lista";
+        return "redirect:../articulo/lista";
     }
 
 
