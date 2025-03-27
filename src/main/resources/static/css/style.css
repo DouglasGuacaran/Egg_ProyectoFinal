@@ -8,7 +8,7 @@
 }
 
 .logo{
-    width: 40%;
+    width: 120px;
     margin: auto;
 }
 
@@ -44,3 +44,13 @@
 footer {
     text-align: center;
 }
+
+@media (max-width: 455px) {
+    .navbar-brand {
+        width: 40px;
+    }
+    .logo{
+        width: 120px;
+    }
+}
+
