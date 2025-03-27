@@ -118,26 +118,35 @@ public class UsuarioServicio implements UserDetailsService {
     @Transactional
     public Usuario modificarUsuario(MultipartFile archivo, UUID id, String nombre, String apellido, String email, Rol rol) throws MiExcepcion {
 
-        Optional<Usuario> usuarioOpt = Optional.ofNullable(usuarioRepositorio.buscarPorEmail(email));
+        Optional<Usuario> usuarioOpt = Optional.ofNullable(usuarioRepositorio.buscarPorEmail(email)); // Mantengo la búsqueda por email
         if (usuarioOpt.isPresent()) {
             Usuario usuario = usuarioOpt.get();
             usuario.setNombre(nombre);
             usuario.setApellido(apellido);
             usuario.setEmail(email);
             usuario.setRol(rol);
-            String idImagen = null;
 
-            if (usuario.getImagen()!= null){
-                idImagen = usuario.getImagen().getId();
+            // Variable para almacenar la imagen
+            Imagen imagen = null;
+
+            // Si se proporciona un archivo, se actualiza la imagen
+            if (archivo != null && !archivo.isEmpty()) {
+                imagen = imagenServicio.actualizar(archivo, usuario.getImagen() != null ? usuario.getImagen().getId() : null);
+            } else {
+                // Si no se proporciona un archivo, se mantiene la imagen existente
+                imagen = usuario.getImagen();
             }
 
-            Imagen imagen = imagenServicio.actualizar(archivo,idImagen);
+            // Asignamos la imagen al usuario
             usuario.setImagen(imagen);
-            return usuarioRepositorio.save(usuario); // Guarda los cambios
+
+            // Guardamos el usuario con los nuevos cambios
+            return usuarioRepositorio.save(usuario);
         } else {
-            throw new MiExcepcion("Usuario no encontrado con ID: " + id);
+            throw new MiExcepcion("Usuario no encontrado con email: " + email); // Se mantiene el mensaje con el email
         }
     }
+
 
     @Transactional
     public void eliminarUsuario(UUID id) {

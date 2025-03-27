@@ -1,9 +1,11 @@
 package egg.ProyectoFinal.controladores;
 
+import egg.ProyectoFinal.entidades.Imagen;
 import egg.ProyectoFinal.excepciones.MiExcepcion;
 import egg.ProyectoFinal.entidades.Usuario;
 import egg.ProyectoFinal.enumeraciones.Rol;
 import egg.ProyectoFinal.repositorios.UsuarioRepositorio;
+import egg.ProyectoFinal.servicios.ImagenServicio;
 import egg.ProyectoFinal.servicios.UsuarioServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -24,6 +26,9 @@ public class AdminControlador {
 
     @Autowired
     private UsuarioServicio usuarioServicio;
+
+    @Autowired
+    private ImagenServicio imagenServicio;
 
     @Autowired
     private UsuarioRepositorio usuarioRepositorio;
@@ -70,8 +75,16 @@ public class AdminControlador {
                     return "redirect:/admin/panel";
                 }
             }
+            Imagen imagenFinal = null;
+            // Si hay un archivo de imagen, se guarda o actualiza
+            if (archivo != null && !archivo.isEmpty()) {
+                imagenFinal = imagenServicio.guardar(archivo); // Guarda la imagen en la base de datos
+            } else {
+                // Si no se ha subido una nueva imagen, usamos la imagen existente
+                imagenFinal = usuarioAEditar.getImagen();
+            }
 
-            // Si no intenta cambiar el rol, se permite modificar otros datos
+            // Llamar al servicio para modificar el usuario, pasando el archivo
             usuarioServicio.modificarUsuario(archivo, id, nombre, apellido, email, nuevoRol);
             redirectAttributes.addFlashAttribute("exito", "Usuario editado correctamente.");
             return "redirect:/admin/panel";

@@ -21,7 +21,7 @@ public class ImagenServicio {
             try {
                 Imagen imagen = new Imagen();
                 imagen.setMime(archivo.getContentType());
-                imagen.setNombre(archivo.getName());
+                imagen.setNombre(archivo.getOriginalFilename());
                 imagen.setContenido(archivo.getBytes());
                 return imagenRepositorio.save(imagen);
             }catch (Exception ex){
@@ -53,6 +53,15 @@ public class ImagenServicio {
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
+        }
+        return null;
+    }
+    @Transactional
+    public Imagen guardar(Imagen imagen) {
+        try {
+            return imagenRepositorio.save(imagen);
+        } catch (Exception ex) {
+            System.err.println(ex.getMessage());
         }
         return null;
     }
