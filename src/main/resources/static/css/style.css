@@ -195,8 +195,6 @@ footer {
 }
 
 .elementosNav{
-    width: 35%;
-    color: #37474f;
     font-weight: 700;
 }
 
@@ -206,10 +204,6 @@ footer {
 
 .elementosNav a:hover {
     text-decoration:none;
-}
-
-.containerImg{
-    width: 20%;
 }
 
 .logo{

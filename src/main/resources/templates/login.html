@@ -1,7 +1,7 @@
 
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
-<head th:replace = "fragments/head :: head"></head>
+<head th:replace = "~{fragments/head :: head}"></head>
 <body>
 
 <nav class="navbar navbar-expand-lg">
@@ -52,7 +52,7 @@
             <input type="password" class="form-control" name="password" placeholder="Ingrese la contraseña">
         </div>
 
-        <button type="submit" class="btn btn-primary mt-3 botones">Ingresar!</button>
+        <button type="submit" class="btn btn-primary mt-3 botones">Ingresar</button>
     </form>
 
     <section class=" text-center container">
@@ -64,7 +64,7 @@
     </section>
 </div>
 
-<footer th:replace="fragments/footer :: footer">
+<footer th:replace="~{fragments/footer :: footer}">
 
 </footer>
 
