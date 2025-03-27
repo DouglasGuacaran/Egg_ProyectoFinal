@@ -1,11 +1,7 @@
 <header class="header">
-    <section class="contenedorMain">
-        <div class="tituloBiblioteca">
-            <a class="navbar-brand" href="#">Fabrica Eléctrica EGG</a>
-        </div>
-        <div class="container">
-            <p class="titulo">Encontrá todos los artículos eléctricos Aquí!</p>
-            <p class="subtitulo" th:if = "${session.usuariosession !=null}" th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} "></p>
-        </div>
+    <section class="d-inline-flex flex-column justify-content-center align-items-center">
+        <h1>Fabrica Eléctrica EGG</h1>
+        <h2 class="titulo">Encontrá todos los artículos eléctricos Aquí!</h2>
+        <h3 class="subtitulo" th:if = "${session.usuariosession !=null}" th:text=" 'Hola de vuelta '+ ${session.usuariosession.nombre} "></h3>
     </section>
 </header>
