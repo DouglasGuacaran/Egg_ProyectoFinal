@@ -4,76 +4,72 @@
 <head th:replace = "~{fragments/head :: head}"></head>
 <body>
 
-<nav th:replace = "~{fragments/navbar :: nav}"></nav>
-<div class="container m-5 contenedor">
-    <form class="formulario"  th:action="@{/articulo/modificar/{id}(id=${articulo.id})}" method="POST">
+    <div class="container">
+        <nav th:replace = "~{fragments/navbar :: nav}"></nav>
+        <form class="formulario"  th:action="@{/articulo/modificar/{id}(id=${articulo.id})}" method="POST">
 
-        <input hidden th:value="${articulo.id}" name="id">
+            <input hidden th:value="${articulo.id}" name="id">
 
-        <div class="form-group my-3">
-            <label class="mb-2">Nombre del Articulo</label>
-            <input th:value="${articulo.nombreArticulo}" type="text" class="form-control" name="nombreArticulo">
-        </div>
-
-        <div class="form-group my-3">
-            <label class="mb-2">Número del Articulo</label>
-            <input th:value="${articulo.nroArticulo}" type="text" class="form-control" name="nroArticulo">
-        </div>
-
-        <div class="form-group my-3">
-            <label class="mb-2">Descripción del Articulo</label>
-            <input th:value="${articulo.descripcionArticulo}" type="text" class="form-control" name="descripcionArticulo">
-
-        </div>
-        <div class="form-group my-3">
-            <label class="mb-2">Cantidad de Articulos</label>
-            <input th:value="${articulo.cantidad}" type="number" class="form-control" name="cantidad">
-
-        </div>
-
-        <div class="form-group my-3">
-            <label class="mb-2">Fabrica</label>
-
-            <select name="fabricaId">
-                <option value="">Seleccione una fábrica</option>
-                <th:block th:each="fabrica : ${fabricas}">
-                    <option th:value="${fabrica.id}" th:selected="${fabrica.id == fabricaSeleccionada}">
-                        [[${fabrica.nombreFabrica}]]
-                    </option>
-                </th:block>
-            </select>
-        </div>
-
-        <button type="submit" class="btn btn-primary mt-3 botones">Actualizar</button>
-
-        <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-            <div class="card-body">
-                <h5 class="card-title">Exito!</h5>
-                <p class="card-text" th:text="${exito}"></p>
+            <div class="form-group my-3">
+                <label class="mb-2">Nombre del Articulo</label>
+                <input th:value="${articulo.nombreArticulo}" type="text" class="form-control" name="nombreArticulo">
             </div>
-        </div>
-        <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-            <div class="card-body">
-                <h5 class="card-title">Error 👎</h5>
-                <p class="card-text" th:text="${error}"></p>
+
+            <div class="form-group my-3">
+                <label class="mb-2">Número del Articulo</label>
+                <input th:value="${articulo.nroArticulo}" type="text" class="form-control" name="nroArticulo">
             </div>
-        </div>
 
-    </form>
+            <div class="form-group my-3">
+                <label class="mb-2">Descripción del Articulo</label>
+                <input th:value="${articulo.descripcionArticulo}" type="text" class="form-control" name="descripcionArticulo">
 
-    <section class=" text-center container">
-        <div class="row mt-3">
-            <div class="divVolver">
-                <a href="javascript:history.back()" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
             </div>
-        </div>
-    </section>
-</div>
+            <div class="form-group my-3">
+                <label class="mb-2">Cantidad de Articulos</label>
+                <input th:value="${articulo.cantidad}" type="number" class="form-control" name="cantidad">
 
-<footer th:replace="~{fragments/footer :: footer}">
+            </div>
 
-</footer>
+            <div class="form-group my-3">
+                <label class="mb-2">Fabrica</label>
 
+                <select name="fabricaId">
+                    <option value="">Seleccione una fábrica</option>
+                    <th:block th:each="fabrica : ${fabricas}">
+                        <option th:value="${fabrica.id}" th:selected="${fabrica.id == fabricaSeleccionada}">
+                            [[${fabrica.nombreFabrica}]]
+                        </option>
+                    </th:block>
+                </select>
+            </div>
+
+            <button type="submit" class="btn btn-primary mt-3 botones">Actualizar</button>
+
+            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                <div class="card-body">
+                    <h5 class="card-title">Exito!</h5>
+                    <p class="card-text" th:text="${exito}"></p>
+                </div>
+            </div>
+            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                <div class="card-body">
+                    <h5 class="card-title">Error 👎</h5>
+                    <p class="card-text" th:text="${error}"></p>
+                </div>
+            </div>
+
+        </form>
+
+        <section class=" text-center container">
+            <div class="row mt-3">
+                <div class="divVolver">
+                    <a href="javascript:history.back()" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+                </div>
+            </div>
+        </section>
+        <footer th:replace="~{fragments/footer :: footer}"></footer>
+    </div>
 
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
