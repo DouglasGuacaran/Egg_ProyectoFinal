@@ -1,49 +1,4 @@
-/* Asegurar que el footer se quede abajo */
-/* Aseguramos que el cuerpo ocupe toda la altura de la ventana */
-html, body {
-    height: 100%;
-    margin: 0;
-}
 
-/* Estilos generales */
-body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
-    background-color: #f8f9fa;
-    color: #333;
-}
-
-nav h1 {
-    color: white;
-    margin: 0;
-}
-
-nav ul {
-    list-style: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: white;
-    text-decoration: none;
-    font-weight: bold;
-}
-
-nav ul li a:hover {
-    text-decoration: underline;
-}
-
-/* Sección de bienvenida */
-.welcome {
-    text-align: center;
-    margin: 50px 20px;
-}
 
 h2 {
     color: #0056b3;
@@ -54,125 +9,15 @@ h2 {
     margin-top: 20px;
 }
 
-.btn {
-    margin: 10px;
-    text-decoration: none;
-    color: white;
-}
-
-.formulario{
-    width: 50%;
-    margin: auto;
-    display: flex;
-    flex-direction: column;
-}
-/* Contenedor del formulario */
-.form-container {
-    max-width: 400px;
-    margin: 50px auto;
-    padding: 20px;
-    background: white;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
-}
-
-/* Estilos para los inputs */
-form {
-    display: flex;
-    flex-direction: column;
-}
-
-
-label {
-    font-weight: bold;
-    margin-top: 10px;
-}
-
-input {
-    padding: 8px;
-    margin-top: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-}
 
 /* Estilos para el botón */
-button.btn {
+button .btn {
     margin-top: 15px;
     padding: 10px;
     font-size: 16px;
     cursor: pointer;
 }
 
-
-/* El contenedor principal ocupa el espacio disponible, empujando el footer hacia el fondo */
-main {
-    min-height: 100%;
-    padding-bottom: 60px; /* Espacio suficiente para que el footer no tape el contenido */
-}
-
-/* Estilos para la tabla de artículos */
-.lista-articulos-table {
-    width: 100%; /* Ancho total */
-    table-layout: auto; /* Ajusta el ancho según el contenido */
-    border-collapse: collapse; /* Bordes sin espacio */
-}
-
-.lista-articulos-table th, .lista-articulos-table td {
-    padding: 15px; /* Más espacio para los contenidos */
-    text-align: left;
-    border: 1px solid #ddd;
-    word-wrap: break-word; /* Para que el texto largo se ajuste a la celda */
-}
-
-.lista-articulos-table th {
-    background-color: #f4f4f4; /* Fondo claro para las cabeceras */
-    font-weight: bold;
-}
-
-.lista-articulos-table td {
-    background-color: #fff; /* Fondo blanco para las celdas */
-}
-
-/* Ajustes para los botones */
-.lista-articulos-table .btn {
-    padding: 8px 15px; /* Ajustamos el tamaño del botón */
-    text-decoration: none;
-    color: white;
-    background-color: #007bff; /* Mantén el color de botón original */
-    border-radius: 5px;
-    margin-right: 5px;
-    display: inline-block; /* Asegura que los botones no se superpongan */
-}
-
-.lista-articulos-table .btn-edit {
-    background-color: #28a745; /* Botón verde para editar */
-}
-
-.lista-articulos-table .btn-delete {
-    background-color: #dc3545; /* Botón rojo para eliminar */
-}
-
-/* Asegura que la tabla tenga un ancho adecuado para las columnas */
-.lista-articulos-table th:nth-child(1), .lista-articulos-table td:nth-child(1) {
-    width: 10%; /* Columna ID */
-}
-
-.lista-articulos-table th:nth-child(2), .lista-articulos-table td:nth-child(2) {
-    width: 25%; /* Columna Nombre */
-}
-
-.lista-articulos-table th:nth-child(3), .lista-articulos-table td:nth-child(3) {
-    width: 35%; /* Columna Descripción */
-}
-
-.lista-articulos-table th:nth-child(4), .lista-articulos-table td:nth-child(4) {
-    width: 20%; /* Columna Fábrica */
-}
-
-.lista-articulos-table th:nth-child(5), .lista-articulos-table td:nth-child(5) {
-    width: 10%; /* Columna Acciones */
-}
 
 footer {
     position: relative;
@@ -219,75 +64,6 @@ footer {
 .header{
     background-image: url(../img/FondoZoom_2.jpg);
     background-size: cover;
-    height: 550px;
     display: flex;
     justify-content: end;
-}
-
-.boton{
-    background-color: #ffcb00;
-    box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-    -webkit-box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-    -moz-box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-}
-.boton:hover{
-    background-color: #ffcb00;
-}
-
-.botonCargar{
-    box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-    -webkit-box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-    -moz-box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-}
-
-.boton:active{
-    box-shadow: none;
-}
-.botonCargar:active{
-    box-shadow: none;
-}
-
-.divVolver{
-    width: 50%;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: auto;
-}
-
-.botonVolver{
-    width: 70%;
-}
-
-.botones{
-    box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-    -webkit-box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-    -moz-box-shadow: 0px 2px 16px 4px rgba(0,0,0,0.36);
-}
-.botones:active{
-    box-shadow: none;
-}
-
-.tituloBiblioteca{
-    width: 90%;
-    text-align: center;
-    font-size: 34px;
-    margin-top: 80px;
-    font-weight: 500;
-}
-
-.titulo{
-    width: 90%;
-    text-align: center;
-    font-size: 18px;
-    margin-top: 80px;
-    font-weight: 500;
-}
-
-.subtitulo {
-    width: 90%;
-    text-align: center;
-    font-size: 20px;
-    margin-top: 80px;
-    font-weight: 500;
 }
