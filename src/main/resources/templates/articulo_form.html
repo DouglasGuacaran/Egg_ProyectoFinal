@@ -6,54 +6,60 @@
     <div class="container">
 
         <nav th:replace = "~{fragments/navbar :: nav}"></nav>
+        <div class="row d-flex flex-column align-items-center justify-content-center">
+            <div class="col-10 col-xs-8 col-md-6 col-lg-4">
+                <form th:action="@{/articulo/registro}" method="POST">
 
-        <form th:action="@{/articulo/registro}" method="POST">
+                    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                        <div class="card-body">
+                            <h5 class="card-title">Error 👎</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                        <div class="card-body">
+                            <h5 class="card-title">Exito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
 
-            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-                <div class="card-body">
-                    <h5 class="card-title">Error 👎</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
+                    <div class="form-group my-3">
+                        <label class="mb-2">Crear Articulo</label>
+                        <div class="form-group my-3">
+                            <input type="text" class="form-control" name="nombreArticulo"  placeholder="Nombre del Artículo">
+                        </div>
+                        <div class="form-group my-3">
+                            <input type="text" class="form-control" name="descripcionArticulo"  placeholder="Descripcion del Artículo">
+                        </div>
+                            <!-- Lista de autores -->
+                        <div class="form-group my-3">
+                            <select class="form-control" name="fabricaId">
+                                <option value="default">Seleccione la Fábrica que lo elaboró:</option>
+                                <option th:each="fabrica : ${fabricas}"
+                                        th:value="${fabrica.id}"
+                                        th:text="${fabrica.nombreFabrica}"></option>
+                            </select>
+                        </div>
+
+                        <div class="form-group my-3">
+                            <input type="number" class="form-control" name="cantidad"  placeholder="Cantidad de Artículos">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+                <section class=" text-center container">
+                    <div class="row mt-3">
+                        <div class="divVolver">
+                            <a href="javascript:history.back()" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
-                    <p class="card-text" th:text="${exito}"></p>
-                </div>
-            </div>
-
-            <div class="form-group my-3">
-                <label class="mb-2">Crear Articulo</label>
-                <div class="form-group my-3">
-                    <input type="text" class="form-control" name="nombreArticulo"  placeholder="Nombre del Artículo">
-                </div>
-                <div class="form-group my-3">
-                    <input type="text" class="form-control" name="descripcionArticulo"  placeholder="Descripcion del Artículo">
-                </div>
-                    <!-- Lista de autores -->
-                <div class="form-group my-3">
-                    <select class="form-control" name="fabricaId">
-                        <option value="default">Seleccione la Fábrica que lo elaboró:</option>
-                        <option th:each="fabrica : ${fabricas}"
-                                th:value="${fabrica.id}"
-                                th:text="${fabrica.nombreFabrica}"></option>
-                    </select>
-                </div>
-
-                <div class="form-group my-3">
-                    <input type="number" class="form-control" name="cantidad"  placeholder="Cantidad de Artículos">
-                </div>
-            </div>
-            <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
-        </form>
-        <section class=" text-center container">
-            <div class="row mt-3">
-                <div class="divVolver">
-                    <a href="javascript:history.back()" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
-                </div>
-            </div>
-        </section>
-
+        </div>
         <footer th:replace="~{fragments/footer :: footer}"></footer>
     </div>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>

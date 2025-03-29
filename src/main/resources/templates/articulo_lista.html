@@ -6,34 +6,36 @@
 <body>
 <div class="container" >
     <nav th:replace = "~{fragments/navbar :: nav}"></nav>
+    <div class="table-responsive">
+        <table class="table table-dark caption-top">
+            <caption>Lista de Artículos</caption>
+            <thead>
+            <tr>
+                <th scope="col">Id del artículo</th>
+                <th scope="col">Nombre del Artículo</th>
+                <th scope="col">Número de Artículo</th>
+                <th scope="col">Descricion del Artículo</th>
+                <th scope="col">Fabricado por</th>
+                <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
 
-    <table class="table table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Id del artículo</th>
-            <th scope="col">Nombre del Artículo</th>
-            <th scope="col">Número de Artículo</th>
-            <th scope="col">Descricion del Artículo</th>
-            <th scope="col">Fabricado por</th>
-            <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
+            </tr>
+            </thead>
+            <tbody th:each="articulo : ${articulos}">
+            <tr>
+                <th scope="row" th:text="${articulo.id}"></th>
+                <td th:text="${articulo.nombreArticulo}"></td>
+                <td th:text="${articulo.nroArticulo}"></td>
+                <td th:text="${articulo.descripcionArticulo}"></td>
+                <td th:text="${articulo.fabrica.nombreFabrica}"></td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href= "@{/articulo/modificar/__${articulo.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
+                </td>
 
-        </tr>
-        </thead>
-        <tbody th:each="articulo : ${articulos}">
-        <tr>
-            <th scope="row" th:text="${articulo.id}"></th>
-            <td th:text="${articulo.nombreArticulo}"></td>
-            <td th:text="${articulo.nroArticulo}"></td>
-            <td th:text="${articulo.descripcionArticulo}"></td>
-            <td th:text="${articulo.fabrica.nombreFabrica}"></td>
-            <td sec:authorize="hasRole('ADMIN')">
-                <a th:href= "@{/articulo/modificar/__${articulo.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
-            </td>
+            </tr>
 
-        </tr>
-
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
     <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
         <div class="card-body">

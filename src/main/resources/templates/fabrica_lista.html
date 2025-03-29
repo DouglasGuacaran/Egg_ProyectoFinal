@@ -7,28 +7,30 @@
 
 <div class="container" >
     <nav th:replace = "~{fragments/navbar :: nav}"></nav>
+    <div class="table-responsive">
+        <table class="table table-dark caption-top">
+        <caption>Lista de Fábricas</caption>
+            <thead>
+            <tr>
+                <th scope="col">Id de la Fábrica</th>
+                <th scope="col">Nombre de la Fábrica</th>
+                <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
 
-    <table class="table table-dark">
-        <thead>
-        <tr>
-            <th scope="col">Id de la Fábrica</th>
-            <th scope="col">Nombre de la Fábrica</th>
-            <th scope="col" sec:authorize="hasRole('ADMIN')">Acciones</th>
+            </tr>
+            </thead>
+            <tbody th:each="fabrica : ${fabricas}">
+            <tr>
+                <th scope="row" th:text="${fabrica.id}"></th>
+                <td th:text="${fabrica.nombreFabrica}"></td>
+                <td sec:authorize="hasRole('ADMIN')">
+                    <a th:href= "@{/fabrica/modificar/__${fabrica.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
+                </td>
 
-        </tr>
-        </thead>
-        <tbody th:each="fabrica : ${fabricas}">
-        <tr>
-            <th scope="row" th:text="${fabrica.id}"></th>
-            <td th:text="${fabrica.nombreFabrica}"></td>
-            <td sec:authorize="hasRole('ADMIN')">
-                <a th:href= "@{/fabrica/modificar/__${fabrica.id}__}"><i class="fas fa-feather-alt">  </i> Modificar </a>
-            </td>
+            </tr>
 
-        </tr>
-
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 
     <div th:if="${exito}!=null" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
         <div class="card-body">

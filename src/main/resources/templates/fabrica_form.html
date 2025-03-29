@@ -4,36 +4,44 @@
 <body>
     <div class="container">
         <nav th:replace = "~{fragments/navbar :: nav}"></nav>
-        <form  th:action="@{/fabrica/registro}" method="POST">
+        <div class="row d-flex flex-column align-items-center justify-content-center">
+            <div class="col-10 col-xs-8 col-md-6 col-lg-4">
+                <form  th:action="@{/fabrica/registro}" method="POST">
 
-            <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
-                <div class="card-body">
-                    <h5 class="card-title">Error 👎</h5>
-                    <p class="card-text" th:text="${error}"></p>
-                </div>
-            </div>
-            <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
-                <div class="card-body">
-                    <h5 class="card-title">Exito!</h5>
-                    <p class="card-text" th:text="${exito}"></p>
-                </div>
-            </div>
+                    <div th:if="${error != null}" class="card text-white bg-danger mb-3 mensajeError" >
+                        <div class="card-body">
+                            <h5 class="card-title">Error 👎</h5>
+                            <p class="card-text" th:text="${error}"></p>
+                        </div>
+                    </div>
+                    <div th:if="${exito != null}" class="card text-white bg-success mb-3 mt-3 mensajeExito" >
+                        <div class="card-body">
+                            <h5 class="card-title">Exito!</h5>
+                            <p class="card-text" th:text="${exito}"></p>
+                        </div>
+                    </div>
 
-            <div class="form-group my-3">
-                <label class="mb-2">Crear Fábrica</label>
-                <div class="form-group my-3">
-                    <input type="text" class="form-control" name="nombreFabrica"  placeholder="Nombre de la Fábrica">
-                </div>
+                    <div class="form-group my-3">
+                        <label class="mb-2">Crear Fábrica</label>
+                        <div class="form-group my-3">
+                            <input type="text" class="form-control" name="nombreFabrica"  placeholder="Nombre de la Fábrica">
+                        </div>
+                    </div>
+                    <div class="row justify-content-center">
+                        <div class="col-auto">
+                            <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
+                        </div>
+                    </div>
+                </form>
+                <section class=" text-center container">
+                    <div class="row mt-3">
+                        <div class="divVolver">
+                            <a href="javascript:history.back()" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
+                        </div>
+                    </div>
+                </section>
             </div>
-            <button type="submit" class="btn btn-primary mt-3 botones">Guardar</button>
-        </form>
-        <section class=" text-center container">
-            <div class="row mt-3">
-                <div class="divVolver">
-                    <a href="javascript:history.back()" class="btn btn-secondary my-2 botonVolver botones">Volver</a>
-                </div>
-            </div>
-        </section>
+        </div>
         <footer th:replace="~{fragments/footer :: footer}"></footer>
 
     </div>
